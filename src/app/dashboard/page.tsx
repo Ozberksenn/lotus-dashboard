@@ -3,11 +3,12 @@ import { AppBarChart } from "@/app/dashboard/_components/AppBarChart";
 import { AppLineChart } from "@/app/dashboard/_components/AppLineChart";
 import { AppPieChart } from "@/app/dashboard/_components/AppPieChart";
 import { EmployeeCard } from "@/app/dashboard/_components/EmployeeCard";
+import { DepartmentCard } from "./_components/DepartmentCard";
 
 export default function Dashboard() {
   return (
-    <div className="p-4">
-      <div className="flex flex-row gap-2">
+    <div className="p-4 space-y-4">
+      <div className="flex flex-row gap-4">
         <div className="flex-1">
           <EmployeeCard />
         </div>
@@ -15,10 +16,10 @@ export default function Dashboard() {
           <AppPieChart />
         </div>
         <div className="flex-1">
-          <EmployeeCard />
+          <DepartmentCard />
         </div>
       </div>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-4">
         <div className="flex-1">
           <AppBarChart />
         </div>

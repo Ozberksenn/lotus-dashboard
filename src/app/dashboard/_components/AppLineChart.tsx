@@ -1,4 +1,5 @@
 "use client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -43,54 +44,60 @@ const chartConfig = {
 
 export const AppLineChart = () => {
   return (
-    <div>
-      <h1 className="text-lg font-medium mb-6">Total Visitors</h1>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-        <LineChart
-          accessibilityLayer
-          data={chartData}
-          margin={{
-            top: 24,
-            left: 24,
-            right: 24,
-          }}
-        >
-          <CartesianGrid vertical={false} />
-          <ChartTooltip
-            cursor={false}
-            content={
-              <ChartTooltipContent
-                indicator="line"
-                nameKey="visitors"
-                hideLabel
-              />
-            }
-          />
-          <Line
-            dataKey="visitors"
-            type="natural"
-            stroke="var(--color-visitors)"
-            strokeWidth={2}
-            dot={{
-              fill: "var(--color-visitors)",
-            }}
-            activeDot={{
-              r: 6,
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg font-medium mb-6">
+          Total Visitors
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              top: 24,
+              left: 24,
+              right: 24,
             }}
           >
-            <LabelList
-              position="top"
-              offset={12}
-              className="fill-foreground"
-              fontSize={12}
-              dataKey="browser"
-              formatter={(value: keyof typeof chartConfig) =>
-                chartConfig[value]?.label
+            <CartesianGrid vertical={false} />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  indicator="line"
+                  nameKey="visitors"
+                  hideLabel
+                />
               }
             />
-          </Line>
-        </LineChart>
-      </ChartContainer>
-    </div>
+            <Line
+              dataKey="visitors"
+              type="natural"
+              stroke="var(--color-visitors)"
+              strokeWidth={2}
+              dot={{
+                fill: "var(--color-visitors)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
+            >
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                dataKey="browser"
+                formatter={(value: keyof typeof chartConfig) =>
+                  chartConfig[value]?.label
+                }
+              />
+            </Line>
+          </LineChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
 };

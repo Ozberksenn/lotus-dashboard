@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Management() {
   return (
     <div>
       <p>Hello next js</p>

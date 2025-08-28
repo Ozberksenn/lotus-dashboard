@@ -1,4 +1,4 @@
-import { Home, Calendar, LucideProps } from "lucide-react";
+import { LayoutDashboard, Users, LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 export type MenuType = {
@@ -11,14 +11,14 @@ export type MenuType = {
 
 export const menu: MenuType[] = [
   {
-    title: "Home",
-    url: "home",
-    icon: Home,
+    title: "Dashboard",
+    url: "dashboard",
+    icon: LayoutDashboard,
   },
 
   {
-    title: "Management",
-    url: "management",
-    icon: Calendar,
+    title: "Employees",
+    url: "employees",
+    icon: Users,
   },
 ];

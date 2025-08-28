@@ -1,3 +1,8 @@
+"use client";
+import { menu, MenuType } from "@/layout/menu";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -7,22 +12,23 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
 } from "./ui/sidebar";
-import { BookA, ChevronUp, User2 } from "lucide-react";
+import { ChevronUp, User2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { menu, MenuType } from "@/layout/menu";
-import Image from "next/image";
-import Link from "next/link";
+
 export const AppSidebar = () => {
+  const pathname = usePathname();
+  const activeKey = menu.find(
+    (item) => item.url === pathname.split("/")[1]
+  )?.url;
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -45,7 +51,7 @@ export const AppSidebar = () => {
             <SidebarMenu>
               {menu.map((item: MenuType) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton isActive={item.url === activeKey} asChild>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

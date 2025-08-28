@@ -1,11 +1,20 @@
 "use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Employee>[] = [
   {
-    accessorKey: "id",
-    header: "Id",
+    accessorKey: "avatar",
+    header: "Avatar",
+    cell: ({ getValue }) => (
+      <div>
+        <Avatar>
+          <AvatarImage src={String(getValue())} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </div>
+    ),
   },
   {
     id: "fullName",
@@ -43,10 +52,6 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "status",
     header: "Status",
-  },
-  {
-    accessorKey: "avatar",
-    header: "Avatar",
   },
   {
     accessorKey: "teamId",

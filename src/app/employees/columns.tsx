@@ -11,7 +11,6 @@ export const columns: ColumnDef<Employee>[] = [
       <div>
         <Avatar>
           <AvatarImage src={String(getValue())} />
-          <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
     ),

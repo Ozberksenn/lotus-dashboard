@@ -3,6 +3,16 @@ import { columns } from "./columns";
 import { Employee } from "@/types/employee";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { AppSheet } from "./_components/AppSheet";
 
 async function getData(): Promise<Employee[]> {
   // Fetch data from your API here.
@@ -29,10 +39,15 @@ export default async function Management() {
     <div>
       <div className="flex justify-between mb-2">
         <div></div>
-        <Button>
-          <Plus />
-          Add Employee
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button>
+              <Plus />
+              Add Employee
+            </Button>
+          </SheetTrigger>
+          <AppSheet />
+        </Sheet>
       </div>
       <DataTable columns={columns} data={data} />
     </div>

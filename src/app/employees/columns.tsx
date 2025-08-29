@@ -32,23 +32,25 @@ export const columns: ColumnDef<Employee>[] = [
     cell: ({ getValue }) => (
       <div className="flex gap-1 items-center">
         <Mail size={16} />
-        <h5 >{String(getValue())}</h5>
+        <h5>{String(getValue())}</h5>
       </div>
     ),
   },
   {
     accessorKey: "phone",
     header: "Phone",
-     cell: ({ getValue }) => (
+    cell: ({ getValue }) => (
       <div className="flex gap-1 items-center">
         <Phone size={16} />
-        <h5 >{String(getValue())}</h5>
+        <h5>{String(getValue())}</h5>
       </div>
     ),
   },
   {
     accessorKey: "department",
     header: "Department",
+    // accessorFn: (row) =>
+    // departments.find(d => d.id === row.departmentId)?.name || "",
   },
   {
     accessorKey: "position",

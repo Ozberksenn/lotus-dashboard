@@ -1,14 +1,17 @@
-import { SidebarTrigger } from "./ui/sidebar";
+"use client";
+import { Moon, Sun } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
+import { SidebarTrigger } from "./ui/sidebar";
 
 export const Navbar = () => {
+  const { setTheme } = useTheme();
   return (
     <nav className="p-4 flex items-center justify-between">
       <SidebarTrigger />
@@ -23,9 +26,9 @@ export const Navbar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Light</DropdownMenuItem>
-            <DropdownMenuItem>Dark</DropdownMenuItem>
-            <DropdownMenuItem>System</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

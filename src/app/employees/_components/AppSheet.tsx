@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/sheet";
 import { EmployeeForm } from "./EmployeeForm";
 
-export const AppSheet = () => {
+export const AppSheet = ({ onSuccess }: { onSuccess: () => void }) => {
   return (
     <SheetContent>
       <SheetHeader>
         <SheetTitle className="mb-1">Employee</SheetTitle>
         <SheetDescription className="mb-3">Add New Employee</SheetDescription>
-        <EmployeeForm />
+        <EmployeeForm onSuccess={onSuccess} />
       </SheetHeader>
     </SheetContent>
   );

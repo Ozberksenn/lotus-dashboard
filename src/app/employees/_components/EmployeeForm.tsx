@@ -11,16 +11,27 @@ import { useForm } from "react-hook-form";
 import { Employee } from "@/types/employee";
 import { employeeService } from "../service";
 import { useEmployeeStore } from "@/store/employeeState";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DatePickerField } from "./DatePicker";
 
-export const EmployeeForm = () => {
-  const { employees } = useEmployeeStore();
+export const EmployeeForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const { employees, setEmployees, departments } = useEmployeeStore();
   const form = useForm<Employee>({
     defaultValues: {
+      id: crypto.randomUUID(),
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
-      department: "",
+      departmentId: "",
       position: "",
       salary: 0,
       startDate: "",
@@ -29,10 +40,15 @@ export const EmployeeForm = () => {
       teamId: "team",
     },
   });
-
-  const onSubmit = (values: Employee) => {
-    const newEmployee = employeeService.createEmployee(values);
-    console.log(newEmployee);
+  const onSubmit = async (values: Employee) => {
+    try {
+      const newEmployee = await employeeService.createEmployee(values);
+      setEmployees([...employees, newEmployee]);
+      form.reset();
+      onSuccess();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Form {...form}>
@@ -87,12 +103,26 @@ export const EmployeeForm = () => {
         />
         <FormField
           control={form.control}
-          name="department"
+          name="departmentId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Department</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Departments</SelectLabel>
+                      {departments.map((dept) => (
+                        <SelectItem key={dept.id} value={dept.id}>
+                          {dept.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </FormControl>
             </FormItem>
           )}
@@ -128,7 +158,7 @@ export const EmployeeForm = () => {
             <FormItem>
               <FormLabel>Start Date</FormLabel>
               <FormControl>
-                <Input type="date" {...field} />
+                <DatePickerField />
               </FormControl>
             </FormItem>
           )}

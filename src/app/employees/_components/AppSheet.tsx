@@ -1,5 +1,4 @@
 "use client";
-
 import {
   SheetContent,
   SheetDescription,
@@ -13,10 +12,8 @@ export const AppSheet = () => {
     <SheetContent>
       <SheetHeader>
         <SheetTitle className="mb-1">Employee</SheetTitle>
-        <SheetDescription className="mb-3">
-          Add New Employee
-        </SheetDescription>
-      <EmployeeForm />
+        <SheetDescription className="mb-3">Add New Employee</SheetDescription>
+        <EmployeeForm />
       </SheetHeader>
     </SheetContent>
   );

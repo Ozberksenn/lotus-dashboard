@@ -1,11 +1,46 @@
 {
-    "employees" : [
-        {"id":"1", "firstName": "John", "lastName": "Doe", "email": "joh@gmail.com","phone":"+90 0534 0552 66 88","departmentId":"1",
-        "position" : "Developer","salary":90000,"startDate":"2020-01-15","status":"active","avatar":"https://i.pravatar.cc/150?img=1","teamId":"team1"}
-    ],
-    "departments" : [
-        {"id":"1", "name": "IT"},
-        {"id":"2", "name": "HR"},
-        {"id":"3", "name": "Sales"}
-    ]
+  "employees": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "joh@gmail.com",
+      "phone": "+90 0534 0552 66 88",
+      "departmentId": "1",
+      "position": "Developer",
+      "salary": 90000,
+      "startDate": "2020-01-15",
+      "status": "active",
+      "avatar": "https://i.pravatar.cc/150?img=1",
+      "teamId": "team1"
+    },
+    {
+      "id": "faf6",
+      "firstName": "özberk",
+      "lastName": "şen",
+      "email": "ozberksenn@gmail.com",
+      "phone": "05340526699",
+      "department": "IT",
+      "position": "test",
+      "salary": 0,
+      "status": "inactive",
+      "startDate": "2025-09-02",
+      "avatar": "https://i.pravatar.cc/150?img=2",
+      "teamId": "team1"
+    }
+  ],
+  "departments": [
+    {
+      "id": "1",
+      "name": "IT"
+    },
+    {
+      "id": "2",
+      "name": "HR"
+    },
+    {
+      "id": "3",
+      "name": "Sales"
+    }
+  ]
 }

@@ -1,14 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
-import { DataTable } from "./data-table";
+import { useEmployeeStore } from "@/store/employeeState";
 import { columns } from "./columns";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { AppSheet } from "./_components/AppSheet";
-import { employeeService } from "./service";
-import { useEmployeeStore } from "@/store/employeeState";
-import { InitialService } from "../service";
+import { DataTable } from "./data-table";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 export default function Management() {
   const { employees, isLoading, error } = useEmployeeStore();

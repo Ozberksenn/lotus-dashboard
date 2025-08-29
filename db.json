@@ -1,0 +1,11 @@
+{
+    "employees" : [
+        {"id":"1", "firstName": "John", "lastName": "Doe", "email": "joh@gmail.com","phone":"+90 0534 0552 66 88","departmentId":"1",
+        "position" : "Developer","salary":90000,"startDate":"2020-01-15","status":"active","avatar":"","teamId":"team1"}
+    ],
+    "departmenents" : [
+        {"id":"1", "name": "IT"},
+        {"id":"2", "name": "HR"},
+        {"id":"3", "name": "Sales"}
+    ]
+}

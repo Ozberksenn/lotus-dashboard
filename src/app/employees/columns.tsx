@@ -1,11 +1,15 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
 import { Mail, Phone } from "lucide-react";
+import { Department } from "@/types/department";
 
-export const columns: ColumnDef<Employee>[] = [
+export const columns = (
+  departments: Department[],
+  employee: Employee[]
+): ColumnDef<Employee>[] => [
   {
     accessorKey: "avatar",
     header: "Avatar",
@@ -49,8 +53,8 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "department",
     header: "Department",
-    // accessorFn: (row) =>
-    // departments.find(d => d.id === row.departmentId)?.name || "",
+    accessorFn: (row) =>
+      departments.find((d) => d.id === row.departmentId)?.name || "",
   },
   {
     accessorKey: "position",
@@ -67,9 +71,12 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ getValue }) => (
-      <Button variant="outline">{String(getValue())}</Button>
-    ),
+    cell: ({ getValue }) =>
+      getValue() == "active" ? (
+        <Button>{String(getValue())}</Button>
+      ) : (
+        <Button variant="destructive">{String(getValue())}</Button>
+      ),
   },
   {
     accessorKey: "teamId",

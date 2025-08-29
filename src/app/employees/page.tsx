@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 export default function Management() {
-  const { employees, isLoading, error } = useEmployeeStore();
+  const { employees, departments, isLoading, error } = useEmployeeStore();
   if (isLoading) return <p>Loading...</p>; // todo : güzel bir component bul.
   if (error) return <p>Error: {error}</p>; // todo : güzel bir component bul.
   return (
@@ -25,7 +25,7 @@ export default function Management() {
           <AppSheet />
         </Sheet>
       </div>
-      <DataTable columns={columns} data={employees} />
+      <DataTable columns={columns(departments, employees)} data={employees} />
     </div>
   );
 }

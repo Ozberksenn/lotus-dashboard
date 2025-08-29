@@ -4,7 +4,7 @@ export interface Employee {
     lastName : string,
     email : string,
     phone : string,
-    department : string,
+    departmentId : string,
     position : string,
     salary : number,
     startDate : string,

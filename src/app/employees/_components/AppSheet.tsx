@@ -6,16 +6,17 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { EmployeeForm } from "./EmployeeForm";
 
 export const AppSheet = () => {
   return (
     <SheetContent>
       <SheetHeader>
-        <SheetTitle className="mb-4">Edit User</SheetTitle>
-        <SheetDescription>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
+        <SheetTitle className="mb-1">Employee</SheetTitle>
+        <SheetDescription className="mb-3">
+          Add New Employee
         </SheetDescription>
+      <EmployeeForm />
       </SheetHeader>
     </SheetContent>
   );

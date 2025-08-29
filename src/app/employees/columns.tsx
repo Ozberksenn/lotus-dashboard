@@ -1,7 +1,9 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
+import { Mail, Phone } from "lucide-react";
 
 export const columns: ColumnDef<Employee>[] = [
   {
@@ -27,10 +29,22 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "email",
     header: "Email",
+    cell: ({ getValue }) => (
+      <div className="flex gap-1 items-center">
+        <Mail size={16} />
+        <h5 >{String(getValue())}</h5>
+      </div>
+    ),
   },
   {
     accessorKey: "phone",
     header: "Phone",
+     cell: ({ getValue }) => (
+      <div className="flex gap-1 items-center">
+        <Phone size={16} />
+        <h5 >{String(getValue())}</h5>
+      </div>
+    ),
   },
   {
     accessorKey: "department",
@@ -51,6 +65,9 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ getValue }) => (
+      <Button variant="outline">{String(getValue())}</Button>
+    ),
   },
   {
     accessorKey: "teamId",

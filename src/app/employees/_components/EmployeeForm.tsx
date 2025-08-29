@@ -14,7 +14,7 @@ export const EmployeeForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
-                    name="username"
+                    name="employee"
                     render={({ field }) => (
                         <FormItem>
                             <div className="flex flex-row gap-2">

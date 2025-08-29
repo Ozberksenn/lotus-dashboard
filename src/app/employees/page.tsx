@@ -3,15 +3,7 @@ import { columns } from "./columns";
 import { Employee } from "@/types/employee";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { AppSheet } from "./_components/AppSheet";
 
 async function getData(): Promise<Employee[]> {

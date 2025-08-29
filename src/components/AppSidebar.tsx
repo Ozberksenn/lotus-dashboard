@@ -37,7 +37,7 @@ export const AppSidebar = () => {
             <SidebarMenuButton asChild>
               <Link href="/">
                 <Image src="/koala.png" alt="Logo" width={24} height={24} />
-                Lotus Management
+                White Lotus Management
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -70,7 +70,7 @@ export const AppSidebar = () => {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
                   <User2 />
-                  Özberk Şen
+                  Admin
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>

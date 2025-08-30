@@ -4,6 +4,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,23 +22,41 @@ import {
 } from "@/components/ui/select";
 import DatePickerField from "./DatePicker";
 import ImageUpload from "@/components/ImageUpload";
-
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 interface Props {
   initialValues: Employee;
   onSubmit: (values: Employee) => Promise<void>;
 }
 
+const formSchema = z.object({
+  firstName: z.string().nonempty("first name is required"),
+  lastName: z.string().nonempty("last name is required"),
+  email: z.string().email("format must be email"),
+  phone: z.string().optional(),
+  departmentId: z.string(),
+  position: z.string().optional(),
+  salary: z.coerce.number().min(15000),
+  startDate: z.string().min(1, "Start date is required"),
+  avatar: z.string().optional(),
+});
+type FormValues = z.infer<typeof formSchema>;
+
 export default function EmployeeForm(props: Props) {
   const { onSubmit, initialValues } = props;
 
   const { departments } = useEmployeeStore();
-  const form = useForm<Employee>({
+
+  // const form = useForm<Employee>({
+  //   defaultValues: initialValues,
+  // });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: initialValues,
   });
-
-  const handleSubmit = async (values: Employee) => {
+  const handleSubmit = async (values: FormValues) => {
     if (typeof onSubmit === "function") {
-      await onSubmit(values);
+      await onSubmit(values as Employee);
       form.reset();
     }
   };
@@ -54,6 +73,7 @@ export default function EmployeeForm(props: Props) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -66,6 +86,7 @@ export default function EmployeeForm(props: Props) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -78,6 +99,7 @@ export default function EmployeeForm(props: Props) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -116,6 +138,7 @@ export default function EmployeeForm(props: Props) {
                   </SelectContent>
                 </Select>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -140,6 +163,7 @@ export default function EmployeeForm(props: Props) {
               <FormControl>
                 <Input type="number" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -155,6 +179,7 @@ export default function EmployeeForm(props: Props) {
                   onChange={field.onChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

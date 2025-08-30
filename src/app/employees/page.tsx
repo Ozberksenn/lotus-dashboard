@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { MessageCircleWarning } from "lucide-react";
 import { useEmployeeStore } from "@/store/employeeState";
 import AppSpinner from "@/components/AppSpinner";
@@ -9,7 +8,6 @@ import { DataTable } from "./_components/data-table";
 import TableHeader from "./_components/TableHeader";
 
 export default function Employees() {
-  const [open, setOpen] = useState<boolean>(false);
   const { employees, departments, isLoading, error } = useEmployeeStore();
 
   if (isLoading) return <AppSpinner />;
@@ -19,7 +17,6 @@ export default function Employees() {
         <MessageCircleWarning />
       </div>
     );
-
   return (
     <div>
       <TableHeader />

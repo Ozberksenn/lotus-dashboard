@@ -10,5 +10,5 @@ export interface Employee {
     startDate : string,
     status : "active" | "inactive",
     avatar? : string,
-    teamId : string,
+    teamId? : string,
 }

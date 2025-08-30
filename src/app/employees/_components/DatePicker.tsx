@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Label } from "@/components/ui/label";
 import { ChevronDownIcon } from "lucide-react";
 import {
   Popover,
@@ -9,9 +8,27 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export const DatePickerField = () => {
+interface DatePickerFieldProps {
+  value?: string;
+  onChange?: (dateString: string) => void;
+}
+
+export const DatePickerField: React.FC<DatePickerFieldProps> = ({
+  value,
+  onChange,
+}) => {
   const [open, setOpen] = React.useState<boolean>(false);
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
+  const [date, setDate] = React.useState<Date | undefined>(
+    value ? new Date(value) : undefined
+  );
+
+  const handleSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    setOpen(false);
+    if (selectedDate && onChange) {
+      onChange(selectedDate.toISOString()); // string olarak gönder
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -31,10 +48,7 @@ export const DatePickerField = () => {
             mode="single"
             selected={date}
             captionLayout="dropdown"
-            onSelect={(date) => {
-              setDate(date);
-              setOpen(false);
-            }}
+            onSelect={handleSelect}
           />
         </PopoverContent>
       </Popover>

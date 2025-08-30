@@ -108,7 +108,7 @@ export const EmployeeForm = ({ onSuccess }: { onSuccess: () => void }) => {
             <FormItem>
               <FormLabel>Department</FormLabel>
               <FormControl>
-                <Select>
+                <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -158,7 +158,10 @@ export const EmployeeForm = ({ onSuccess }: { onSuccess: () => void }) => {
             <FormItem>
               <FormLabel>Start Date</FormLabel>
               <FormControl>
-                <DatePickerField />
+                <DatePickerField
+                  value={field.value}
+                  onChange={field.onChange}
+                />
               </FormControl>
             </FormItem>
           )}

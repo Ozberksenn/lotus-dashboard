@@ -7,8 +7,8 @@ export const employeeService = {
         return data;
     },
 
-    async deleteEmployee(id : string) : Promise<Employee> {
-        const {data} = await api.delete("/employees", {data: {id}});
+    async deleteEmployee(id : string){
+        const { data } = await api.delete(`/employees/${id}`); 
         return data;
     }
 }

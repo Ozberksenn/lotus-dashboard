@@ -5,6 +5,9 @@ import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
 import { Mail, Phone, Trash } from "lucide-react";
 import { Department } from "@/types/department";
+import { employeeService } from "./service";
+import { useEmployeeStore } from "@/store/employeeState";
+import { AppAlertDialog } from "@/components/AppAlertDialog";
 
 export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
   {
@@ -78,6 +81,27 @@ export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
   {
     accessorKey: "delete",
     header: "Delete",
-    cell: ({ getValue }) => <Trash size={12} />,
+    cell: ({ row }) => {
+      const { employees, setEmployees } = useEmployeeStore();
+      return (
+        <AppAlertDialog
+          title="Are you absolutely sure?"
+          description="This process will delete the relevant employee. Are you still sure?"
+          onConfirm={async () => {
+            try {
+              await employeeService.deleteEmployee(row.original.id);
+              const newData = employees.filter(
+                (item) => item.id !== row.original.id
+              );
+              setEmployees(newData);
+            } catch (error) {
+              console.error(error);
+              alert("Employee could not be deleted"); // todo : shadcn alert ekle.
+            }
+          }}
+          trigger={<Trash size={18} />}
+        ></AppAlertDialog>
+      );
+    },
   },
 ];

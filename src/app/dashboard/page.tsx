@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col gap-4 xl:flex-row">
         <div className="flex-1">
           <EmployeeCard />
         </div>
@@ -33,7 +33,7 @@ export default function Dashboard() {
           <DepartmentCard />
         </div>
       </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col gap-4  xl:flex-row">
         <div className="flex-1">
           <AppBarChart />
         </div>

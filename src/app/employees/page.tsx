@@ -1,4 +1,5 @@
 "use client";
+import { useMemo, useState } from "react";
 import { MessageCircleWarning } from "lucide-react";
 import { useEmployeeStore } from "@/store/employeeState";
 import AppSpinner from "@/components/AppSpinner";
@@ -9,6 +10,13 @@ import TableHeader from "./_components/TableHeader";
 
 export default function Employees() {
   const { employees, departments, isLoading, error } = useEmployeeStore();
+  const [emailFilter, setEmailFilter] = useState<string>("");
+
+  const filtredData = useMemo(() => {
+    return employees.filter((emp) =>
+      emp.email.toLowerCase().includes(emailFilter)
+    );
+  }, [employees, emailFilter]);
 
   if (isLoading) return <AppSpinner />;
   if (error)
@@ -19,8 +27,11 @@ export default function Employees() {
     );
   return (
     <div>
-      <TableHeader />
-      <DataTable columns={columns(departments)} data={employees} />
+      <TableHeader emailFilter={emailFilter} setEmailFilter={setEmailFilter} />
+      <DataTable
+        columns={columns(departments)}
+        data={emailFilter.length > 0 ? filtredData : employees}
+      />
     </div>
   );
 }

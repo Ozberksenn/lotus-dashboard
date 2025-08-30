@@ -11,6 +11,7 @@ import { MessageCircleWarning } from "lucide-react";
 
 export default function Dashboard() {
   const { isLoading, error } = useEmployeeStore();
+
   if (isLoading) return <AppSpinner />;
   if (error)
     return (
@@ -18,6 +19,7 @@ export default function Dashboard() {
         <MessageCircleWarning />
       </div>
     );
+
   return (
     <div className="space-y-4">
       <div className="flex flex-row gap-4">

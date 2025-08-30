@@ -9,7 +9,7 @@
       "departmentId": "2",
       "position": "Developer",
       "salary": 90000,
-      "startDate": "2025-08-23T21:00:00.000Z",
+      "startDate": "2025-05-10T21:00:00.000Z",
       "status": "active",
       "avatar": "https://i.pravatar.cc/150?img=1",
       "teamId": "team1"
@@ -177,7 +177,7 @@
       "departmentId": "2",
       "position": "HR Specialist",
       "salary": 58000,
-      "startDate": "2025-08-18T21:00:00.000Z",
+      "startDate": "2025-08-02T21:00:00.000Z",
       "avatar": "https://i.pravatar.cc/150?img=13",
       "status": "inactive",
       "teamId": "team3"

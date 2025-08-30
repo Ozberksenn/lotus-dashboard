@@ -1,4 +1,3 @@
-"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -6,93 +5,69 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { CartesianGrid, LabelList, Line, LineChart } from "recharts";
+import { useEmployeeStore } from "@/store/employeeState";
+import { CartesianGrid, Line, LineChart, LabelList } from "recharts";
 
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-];
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  configEmployee: {
+    label: "Employees",
     color: "var(--chart-2)",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "var(--chart-1)",
-  },
-  safari: {
-    label: "Safari",
-    color: "var(--chart-2)",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "var(--chart-3)",
-  },
-  edge: {
-    label: "Edge",
-    color: "var(--chart-4)",
-  },
-  other: {
-    label: "Other",
-    color: "var(--chart-5)",
   },
 } satisfies ChartConfig;
 
 export const AppLineChart = () => {
+  const employees = useEmployeeStore((state) => state.employees);
+  const monthCounts: Record<string, number> = {}; // aynı olan tarih ve sayılarını tutucam.
+
+  employees.forEach((emp) => {
+    const date = new Date(emp.startDate);
+    const monthKey = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}`;
+    if (!monthCounts[monthKey]) monthCounts[monthKey] = 0;
+    monthCounts[monthKey] += 1;
+  });
+
+  const chartData = Object.entries(monthCounts).map(([month, count]) => ({
+    month,
+    employees: count,
+  }));
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-lg font-medium mb-6">
-          Total Visitors
+          Monthly Hiring Trend
         </CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              top: 24,
-              left: 24,
-              right: 24,
-            }}
-          >
+          <LineChart data={chartData} margin={{ top: 24, left: 24, right: 24 }}>
             <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
                   indicator="line"
-                  nameKey="visitors"
+                  nameKey="employees"
                   hideLabel
                 />
               }
             />
             <Line
-              dataKey="visitors"
+              dataKey="employees"
               type="natural"
-              stroke="var(--color-visitors)"
+              stroke="var(--color-configEmployee)"
               strokeWidth={2}
-              dot={{
-                fill: "var(--color-visitors)",
-              }}
-              activeDot={{
-                r: 6,
-              }}
+              dot={{ fill: "var(--color-configEmployee)" }}
+              activeDot={{ r: 6 }}
             >
               <LabelList
                 position="top"
                 offset={12}
                 className="fill-foreground"
                 fontSize={12}
-                dataKey="browser"
-                formatter={(value: keyof typeof chartConfig) =>
-                  chartConfig[value]?.label
-                }
+                dataKey="month"
               />
             </Line>
           </LineChart>

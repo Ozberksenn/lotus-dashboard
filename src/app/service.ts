@@ -12,5 +12,4 @@ export const InitialService = {
         return data;
     },
 
-
 }

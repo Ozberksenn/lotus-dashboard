@@ -4,7 +4,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
-import { Mail, Pencil, Phone, Trash } from "lucide-react";
+import { DollarSign, Mail, Pencil, Phone, Trash } from "lucide-react";
 import { Department } from "@/types/department";
 import { employeeService } from "./service";
 import { useEmployeeStore } from "@/store/employeeState";
@@ -66,10 +66,27 @@ export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
   {
     accessorKey: "salary",
     header: "Salary",
+    cell: ({ getValue }) => {
+      return (
+        <div className="flex gap-1 items-center ">
+          <DollarSign size={12} />
+          <p>{String(getValue())}</p>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "startDate",
     header: "Start Date",
+    cell: ({ getValue }) => {
+      const date = new Date(String(getValue()));
+      const formattedDate = date.toLocaleDateString("tr-TR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      return <Button variant="secondary">{formattedDate}</Button>;
+    },
   },
   {
     accessorKey: "status",

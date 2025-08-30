@@ -4,8 +4,14 @@ import { AppLineChart } from "@/app/dashboard/_components/AppLineChart";
 import { AppPieChart } from "@/app/dashboard/_components/AppPieChart";
 import { EmployeeCard } from "@/app/dashboard/_components/EmployeeCard";
 import { DepartmentCard } from "./_components/DepartmentCard";
+import { useEmployeeStore } from "@/store/employeeState";
+import { AppSpinner } from "@/components/AppSpinner";
+import { MessageCircleWarning } from "lucide-react";
 
 export default function Dashboard() {
+  const { isLoading, error } = useEmployeeStore();
+  if (isLoading) return <AppSpinner />;
+  if (error) return <MessageCircleWarning />;
   return (
     <div className="p-4 space-y-4">
       <div className="flex flex-row gap-4">

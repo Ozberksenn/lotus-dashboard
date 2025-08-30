@@ -12,7 +12,7 @@ import {
 import { useEmployeeStore } from "@/store/employeeState";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
-export const AppBarChart = () => {
+export default function AppBarChart() {
   const employees = useEmployeeStore((state) => state.employees);
   const departments = useEmployeeStore((state) => state.departments);
 
@@ -63,4 +63,4 @@ export const AppBarChart = () => {
       </CardContent>
     </Card>
   );
-};
+}

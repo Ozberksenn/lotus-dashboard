@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-export const AppSidebar = () => {
+export default function AppSidebar() {
   const pathname = usePathname();
   const activeKey = menu.find(
     (item) => item.url === pathname.split("/")[1]
@@ -85,4 +85,4 @@ export const AppSidebar = () => {
       </SidebarFooter>
     </Sidebar>
   );
-};
+}

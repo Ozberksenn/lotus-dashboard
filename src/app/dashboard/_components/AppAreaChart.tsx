@@ -32,7 +32,7 @@ const chartData = [
   { month: "June", desktop: 214, mobile: 140 },
 ];
 
-export const AppAreaChart = () => {
+export default function AppAreaChart() {
   return (
     <Card>
       <CardHeader>
@@ -101,4 +101,4 @@ export const AppAreaChart = () => {
       </CardContent>
     </Card>
   );
-};
+}

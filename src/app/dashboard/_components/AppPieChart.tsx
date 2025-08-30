@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { Label, Pie, PieChart } from "recharts";
 import { TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const AppPieChart = () => {
+export default function AppPieChart() {
   const employees = useEmployeeStore((state) => state.employees);
   const departments = useEmployeeStore((state) => state.departments);
 
@@ -96,4 +95,4 @@ export const AppPieChart = () => {
       </div>
     </Card>
   );
-};
+}

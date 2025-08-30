@@ -18,13 +18,13 @@ interface AlertDialogProps {
   onConfirm?: () => void;
 }
 
-export const AppAlertDialog: FC<AlertDialogProps> = ({
+export default function AppAlertDialog({
   title,
   description,
   trigger,
   onCancel,
   onConfirm,
-}) => {
+}: AlertDialogProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
@@ -44,4 +44,4 @@ export const AppAlertDialog: FC<AlertDialogProps> = ({
       </AlertDialogContent>
     </AlertDialog>
   );
-};
+}

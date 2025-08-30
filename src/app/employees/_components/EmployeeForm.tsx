@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Employee } from "@/types/employee";
-import { employeeService } from "../service";
 import { useEmployeeStore } from "@/store/employeeState";
 import {
   Select,
@@ -20,54 +19,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DatePickerField } from "./DatePicker";
-import { toast } from "sonner";
+import DatePickerField from "./DatePicker";
+import ImageUpload from "@/components/ImageUpload";
 
-export const EmployeeForm = ({
-  onSuccess,
-  employee,
-}: {
-  onSuccess: () => void;
-  employee?: Employee;
-}) => {
-  const { employees, setEmployees, departments } = useEmployeeStore();
+interface Props {
+  initialValues: Employee;
+  onSubmit: (values: Employee) => Promise<void>;
+}
+
+export default function EmployeeForm(props: Props) {
+  const { onSubmit, initialValues } = props;
+
+  const { departments } = useEmployeeStore();
   const form = useForm<Employee>({
-    defaultValues: employee || {
-      id: crypto.randomUUID(),
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      departmentId: "",
-      position: "",
-      salary: 0,
-      startDate: "",
-      avatar: `https://i.pravatar.cc/150?img=${employees.length + 1}`,
-      status: "active",
-      teamId: "team",
-    },
+    defaultValues: initialValues,
   });
-  const onSubmit = async (values: Employee) => {
-    let data: Employee | null = null;
-    if (employee == null) {
-      data = await employeeService.createEmployee(values);
-      if (data) {
-        setEmployees([...employees, data]);
-      }
-    } else {
-      data = await employeeService.updateEmployee(values);
-      if (data) {
-        setEmployees(employees.map((e) => (e.id === data!.id ? data! : e)));
-      }
-    }
-    if (data != null) {
+
+  const handleSubmit = async (values: Employee) => {
+    if (typeof onSubmit === "function") {
+      await onSubmit(values);
       form.reset();
-      onSuccess();
     }
   };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="firstName"
@@ -181,8 +158,23 @@ export const EmployeeForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+
+        <FormField
+          control={form.control}
+          name="avatar"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avatar</FormLabel>
+              <FormControl>
+                <ImageUpload value={field.value} onChange={field.onChange} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full mt-4">
+          Submit
+        </Button>
       </form>
     </Form>
   );
-};
+}

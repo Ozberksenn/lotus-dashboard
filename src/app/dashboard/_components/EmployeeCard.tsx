@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const EmployeeCard = () => {
+export default function EmployeeCard() {
   const { employees } = useEmployeeStore();
   return (
     <Card className="h-full">
@@ -23,4 +23,4 @@ export const EmployeeCard = () => {
       </CardContent>
     </Card>
   );
-};
+}

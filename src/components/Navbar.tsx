@@ -10,7 +10,7 @@ import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import { SidebarTrigger } from "./ui/sidebar";
 
-export const Navbar = () => {
+export default function Navbar() {
   const { setTheme } = useTheme();
   return (
     <nav className="p-4 flex items-center justify-between">
@@ -26,12 +26,18 @@ export const Navbar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
+              System
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     </nav>
   );
-};
+}

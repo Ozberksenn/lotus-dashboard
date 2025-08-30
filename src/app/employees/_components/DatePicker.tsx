@@ -13,10 +13,10 @@ interface DatePickerFieldProps {
   onChange?: (dateString: string) => void;
 }
 
-export const DatePickerField: React.FC<DatePickerFieldProps> = ({
+export default function DatePickerField({
   value,
   onChange,
-}) => {
+}: DatePickerFieldProps) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [date, setDate] = React.useState<Date | undefined>(
     value ? new Date(value) : undefined
@@ -54,4 +54,4 @@ export const DatePickerField: React.FC<DatePickerFieldProps> = ({
       </Popover>
     </div>
   );
-};
+}

@@ -15,7 +15,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const AppLineChart = () => {
+export default function AppLineChart() {
   const employees = useEmployeeStore((state) => state.employees);
   const monthCounts: Record<string, number> = {}; // aynı olan tarih ve sayılarını tutucam.
 
@@ -75,4 +75,4 @@ export const AppLineChart = () => {
       </CardContent>
     </Card>
   );
-};
+}

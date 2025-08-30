@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEmployeeStore } from "@/store/employeeState";
 import { LayoutDashboard } from "lucide-react";
 
-export const DepartmentCard = () => {
+export default function DepartmentCard() {
   const { departments } = useEmployeeStore();
   return (
     <Card className="h-full">
@@ -16,4 +16,4 @@ export const DepartmentCard = () => {
       </CardContent>
     </Card>
   );
-};
+}

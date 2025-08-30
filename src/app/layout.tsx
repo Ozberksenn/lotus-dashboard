@@ -3,12 +3,13 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
-import { Navbar } from "@/components/Navbar";
+import AppSidebar from "@/components/AppSidebar";
+import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/themeProvider";
 import { useEmployeeStore } from "@/store/employeeState";
 import { useEffect } from "react";
 import { InitialService } from "./service";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,14 +68,16 @@ export default function RootLayout({
             <AppSidebar />
             <main className="w-full">
               <Navbar />
-              <div className="px-4">{children}</div>
+              <div className="p-4">{children}</div>
             </main>
           </SidebarProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
 }
+
 function sleep(arg0: number) {
   throw new Error("Function not implemented.");
 }

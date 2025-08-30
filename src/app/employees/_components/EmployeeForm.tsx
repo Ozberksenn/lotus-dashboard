@@ -21,11 +21,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DatePickerField } from "./DatePicker";
+import { toast } from "sonner";
 
-export const EmployeeForm = ({ onSuccess }: { onSuccess: () => void }) => {
+export const EmployeeForm = ({
+  onSuccess,
+  employee,
+}: {
+  onSuccess: () => void;
+  employee?: Employee;
+}) => {
   const { employees, setEmployees, departments } = useEmployeeStore();
   const form = useForm<Employee>({
-    defaultValues: {
+    defaultValues: employee || {
       id: crypto.randomUUID(),
       firstName: "",
       lastName: "",
@@ -41,13 +48,21 @@ export const EmployeeForm = ({ onSuccess }: { onSuccess: () => void }) => {
     },
   });
   const onSubmit = async (values: Employee) => {
-    try {
-      const newEmployee = await employeeService.createEmployee(values);
-      setEmployees([...employees, newEmployee]);
+    let data: Employee | null = null;
+    if (employee == null) {
+      data = await employeeService.createEmployee(values);
+      if (data) {
+        setEmployees([...employees, data]);
+      }
+    } else {
+      data = await employeeService.updateEmployee(values);
+      if (data) {
+        setEmployees(employees.map((e) => (e.id === data!.id ? data! : e)));
+      }
+    }
+    if (data != null) {
       form.reset();
       onSuccess();
-    } catch (error) {
-      console.log(error);
     }
   };
   return (

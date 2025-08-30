@@ -1,13 +1,16 @@
 "use client";
+import { useState } from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
-import { Mail, Phone, Trash } from "lucide-react";
+import { Mail, Pencil, Phone, Trash } from "lucide-react";
 import { Department } from "@/types/department";
 import { employeeService } from "./service";
 import { useEmployeeStore } from "@/store/employeeState";
 import { AppAlertDialog } from "@/components/AppAlertDialog";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { AppSheet } from "./_components/AppSheet";
 
 export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
   {
@@ -79,6 +82,23 @@ export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
       ),
   },
   {
+    accessorKey: "update",
+    header: "Update",
+    cell: ({ row }) => {
+      const [open, setOpen] = useState<boolean>(false);
+      const handleClose = () => setOpen(false);
+      const employee = row.original as Employee;
+      return (
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger>
+            <Pencil size={18} />
+          </SheetTrigger>
+          <AppSheet employee={employee} onSuccess={handleClose} />
+        </Sheet>
+      );
+    },
+  },
+  {
     accessorKey: "delete",
     header: "Delete",
     cell: ({ row }) => {
@@ -88,15 +108,12 @@ export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
           title="Are you absolutely sure?"
           description="This process will delete the relevant employee. Are you still sure?"
           onConfirm={async () => {
-            try {
-              await employeeService.deleteEmployee(row.original.id);
+            const data = await employeeService.deleteEmployee(row.original.id);
+            if (data != null) {
               const newData = employees.filter(
                 (item) => item.id !== row.original.id
               );
               setEmployees(newData);
-            } catch (error) {
-              console.error(error);
-              alert("Employee could not be deleted"); // todo : shadcn alert ekle.
             }
           }}
           trigger={<Trash size={18} />}

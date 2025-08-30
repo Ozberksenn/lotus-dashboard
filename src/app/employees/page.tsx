@@ -11,12 +11,22 @@ import TableHeader from "./_components/TableHeader";
 export default function Employees() {
   const { employees, departments, isLoading, error } = useEmployeeStore();
   const [emailFilter, setEmailFilter] = useState<string>("");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("");
 
-  const filtredData = useMemo(() => {
-    return employees.filter((emp) =>
-      emp.email.toLowerCase().includes(emailFilter)
-    );
-  }, [employees, emailFilter]);
+  const filteredData = useMemo(() => {
+    return employees.filter((emp) => {
+      const emailMatch = emp.email
+        .toLowerCase()
+        .includes(emailFilter.toLowerCase());
+
+      const depMatch = departmentFilter
+        ? departments.find((d) => d.id === emp.departmentId)?.name ===
+          departmentFilter
+        : true;
+
+      return emailMatch && depMatch;
+    });
+  }, [employees, emailFilter, departmentFilter, departments]);
 
   if (isLoading) return <AppSpinner />;
   if (error)
@@ -27,10 +37,21 @@ export default function Employees() {
     );
   return (
     <div>
-      <TableHeader emailFilter={emailFilter} setEmailFilter={setEmailFilter} />
+      <TableHeader
+        depFilter={departmentFilter}
+        setDepFilter={setDepartmentFilter}
+        emailFilter={emailFilter}
+        setEmailFilter={setEmailFilter}
+      />
       <DataTable
         columns={columns(departments)}
-        data={emailFilter.length > 0 ? filtredData : employees}
+        data={
+          emailFilter.length > 0
+            ? filteredData
+            : departmentFilter.length > 0
+            ? filteredData
+            : employees
+        }
       />
     </div>
   );

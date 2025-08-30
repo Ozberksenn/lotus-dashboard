@@ -3,13 +3,10 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Employee } from "@/types/employee";
 import { ColumnDef } from "@tanstack/react-table";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Trash } from "lucide-react";
 import { Department } from "@/types/department";
 
-export const columns = (
-  departments: Department[],
-  employee: Employee[]
-): ColumnDef<Employee>[] => [
+export const columns = (departments: Department[]): ColumnDef<Employee>[] => [
   {
     accessorKey: "avatar",
     header: "Avatar",
@@ -79,7 +76,8 @@ export const columns = (
       ),
   },
   {
-    accessorKey: "teamId",
-    header: "Team ID",
+    accessorKey: "delete",
+    header: "Delete",
+    cell: ({ getValue }) => <Trash size={12} />,
   },
 ];

@@ -9,34 +9,38 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
+import { useEmployeeStore } from "@/store/employeeState";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
-} satisfies ChartConfig;
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
-
 export const AppBarChart = () => {
+  const employees = useEmployeeStore((state) => state.employees);
+  const departments = useEmployeeStore((state) => state.departments);
+
+  const chartData = departments.map((dept, index) => {
+    // maybe i can get active employee
+    const deptEmployees = employees.filter(
+      (emp) => emp.departmentId === dept.id
+    );
+
+    const avgSalary =
+      deptEmployees.length > 0
+        ? deptEmployees.reduce((sum, emp) => sum + Number(emp.salary), 0) /
+          deptEmployees.length
+        : 0;
+
+    return {
+      name: dept.name,
+      salaries: avgSalary,
+      fill: `var(--chart-${index + 1})`,
+    };
+  });
+  const chartConfig = {} satisfies ChartConfig;
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-lg font-medium mb-6">
-          Total Revenue
+          Salary Distribution
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -44,7 +48,7 @@ export const AppBarChart = () => {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="name"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -53,8 +57,7 @@ export const AppBarChart = () => {
             <YAxis tickLine={false} tickMargin={10} axisLine={false} />
             <ChartTooltip content={<ChartTooltipContent />} />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="salaries" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

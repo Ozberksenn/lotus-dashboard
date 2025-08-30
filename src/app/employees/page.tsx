@@ -29,7 +29,7 @@ export default function Management() {
           <AppSheet onSuccess={handleClose} />
         </Sheet>
       </div>
-      <DataTable columns={columns(departments, employees)} data={employees} />
+      <DataTable columns={columns(departments)} data={employees} />
     </div>
   );
 }

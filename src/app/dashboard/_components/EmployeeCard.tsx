@@ -1,4 +1,6 @@
+"use client";
 import { User } from "lucide-react";
+import { useEmployeeStore } from "@/store/employeeState";
 import {
   Card,
   CardContent,
@@ -6,22 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Employee } from "@/types/employee";
-
-const employees: Employee[] = [
-  {
-    id: "1",
-  },
-  {
-    id: "2",
-  },
-];
 
 export const EmployeeCard = () => {
+  const { employees } = useEmployeeStore();
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Çalışan Sayları</CardTitle>
+        <CardTitle>All Employees</CardTitle>
         <CardDescription>Şirketimizde artık daha fazlayız.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 justify-center items-center h-full">

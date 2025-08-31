@@ -11,6 +11,8 @@ import Hydrator from "@/components/Hydrator";
 import "./globals.css";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

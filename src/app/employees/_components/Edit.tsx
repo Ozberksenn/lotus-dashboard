@@ -19,7 +19,7 @@ export default function Edit({ employee }: { employee: Employee }) {
   const { updateEmployee } = useUpdateEmployee();
 
   const handleSubmit = async (values: Employee) => {
-    await updateEmployee(values);
+    await updateEmployee(values, employee.id);
   };
 
   return (

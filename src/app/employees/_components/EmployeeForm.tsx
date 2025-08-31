@@ -1,6 +1,8 @@
+import React from "react";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,12 +26,15 @@ import DatePickerField from "./DatePicker";
 import ImageUpload from "@/components/ImageUpload";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { id } from "zod/v4/locales";
 
 const formSchema = z.object({
   firstName: z.string().nonempty("First name is required"),
   lastName: z.string().nonempty("Last name is required"),
   email: z.string().email("Format must be email"),
-  phone: z.string().optional(),
+  phone: z.string().min(13).max(13),
+  status: z.string(),
   departmentId: z.string(),
   position: z.string().optional(),
   salary: z.number().min(15000),
@@ -64,6 +69,7 @@ export default function EmployeeForm(props: Props) {
     defaultValues: initialValues,
   });
   const handleSubmit = async (values: FormValues) => {
+    console.log(values);
     if (typeof onSubmit === "function") {
       await onSubmit(values as Employee);
       form.reset();
@@ -118,6 +124,7 @@ export default function EmployeeForm(props: Props) {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="phone"
@@ -180,7 +187,11 @@ export default function EmployeeForm(props: Props) {
                 Salary<span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input type="number" {...field} />
+                <Input
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -204,6 +215,36 @@ export default function EmployeeForm(props: Props) {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Status</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-row"
+                >
+                  <FormItem className="flex">
+                    <FormControl>
+                      <RadioGroupItem value="active" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Active</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex">
+                    <FormControl>
+                      <RadioGroupItem value="inactive" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Inactive</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
@@ -217,6 +258,7 @@ export default function EmployeeForm(props: Props) {
             </FormItem>
           )}
         />
+
         <Button type="submit" className="w-full mt-4">
           Submit
         </Button>

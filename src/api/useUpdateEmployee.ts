@@ -6,9 +6,10 @@ import { toast } from "sonner"
 export default function useUpdateEmployee() {
     const {employees, setEmployees} = useEmployeeStore();
 
-    const updateEmployee = async (values: Employee) => {
+    const updateEmployee = async (values: Employee,id:string) => {
         try {
-            const {data} = await api.put(`/employees/${values.id}`, values);
+            const {data} = await api.put(`/employees/${id}`, values);
+            console.log(data)
 
             setEmployees(employees.map((e) => (e.id === data.id ? data : e)));
 

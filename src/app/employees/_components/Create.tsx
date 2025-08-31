@@ -26,7 +26,6 @@ const INITIAL_VALUES: Employee = {
   startDate: "",
   avatar: "",
   status: "active",
-  teamId: "team",
 };
 
 import EmployeeForm from "./EmployeeForm";

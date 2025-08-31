@@ -21,29 +21,39 @@ export default function Dashboard() {
     );
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-4 xl:flex-row">
-        <div className="flex-1">
-          <EmployeeCard />
-        </div>
-        <div className="flex-1">
-          <AppPieChart />
-        </div>
-        <div className="flex-1">
-          <DepartmentCard />
-        </div>
-      </div>
-      <div className="flex flex-col gap-4  xl:flex-row">
-        <div className="flex-1">
-          <AppBarChart />
-        </div>
-        <div className="flex-1">
-          <AppLineChart />
-        </div>
-        <div className="flex-1">
-          <AppAreaChart />
-        </div>
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <EmployeeCard />
+      <AppPieChart />
+      <DepartmentCard />
+      <AppBarChart />
+      <AppLineChart />
+      <AppAreaChart />
     </div>
+
+    // felx yapısı ile dursun. Flex kullandığımda genişlik ve scrool sorunları yaşadım grid e döndüm.
+    // <div className="space-y-4">
+    //   <div className="flex flex-col gap-4 xl:flex-row">
+    //     <div className="flex-1">
+    //       <EmployeeCard />
+    //     </div>
+    //     <div className="flex-1">
+    //       <AppPieChart />
+    //     </div>
+    //     <div className="flex-1">
+    //       <DepartmentCard />
+    //     </div>
+    //   </div>
+    //   <div className="flex flex-col gap-4  xl:flex-row">
+    //     <div className="flex-1">
+    //       <AppBarChart />
+    //     </div>
+    //     <div className="flex-1">
+    //       <AppLineChart />
+    //     </div>
+    //     <div className="flex-1">
+    //       <AppAreaChart />
+    //     </div>
+    //   </div>
+    // </div>
   );
 }

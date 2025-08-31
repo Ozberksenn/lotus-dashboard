@@ -15,7 +15,6 @@ export default function EmployeeCard() {
     <Card className="h-full">
       <CardHeader>
         <CardTitle>All Employees</CardTitle>
-        <CardDescription>Şirketimizde artık daha fazlayız.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 justify-center items-center h-full">
         <User className="h-14 w-14 text-muted-foreground" />

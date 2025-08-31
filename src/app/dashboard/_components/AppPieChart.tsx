@@ -1,6 +1,5 @@
 "use client";
 import { Label, Pie, PieChart } from "recharts";
-import { TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEmployeeStore } from "@/store/employeeState";
 import {
@@ -24,21 +23,17 @@ export default function AppPieChart() {
       fill: `var(--chart-${index + 1})`,
     };
   });
-
-  const totalDep = chartData.reduce((sum, dept) => sum + dept.value, 0);
+  const totalDep = departments.length;
   const chartConfig = {} satisfies ChartConfig;
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-medium mb-6">
+        <CardTitle className="text-lg font-medium">
           Department And Employee Distribution
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+        <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -84,7 +79,7 @@ export default function AppPieChart() {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <div className="flex flex-col gap-2 items-center">
+      {/* <div className="flex flex-col gap-2 items-center">
         <div className="flex items-center gap-2 leading-none font-medium">
           Departments within the company
           <TrendingUp className="h-4 w-4 text-green-500" />
@@ -92,7 +87,7 @@ export default function AppPieChart() {
         <div className="text-muted-foreground leading-none">
           There are a total of {totalDep} departments.
         </div>
-      </div>
+      </div> */}
     </Card>
   );
 }

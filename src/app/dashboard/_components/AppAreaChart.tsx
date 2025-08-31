@@ -1,5 +1,4 @@
 "use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -9,27 +8,26 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { useEmployeeStore } from "@/store/employeeState";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  junior: {
+    label: "Junior",
     color: "var(--chart-3)",
   },
-  mobile: {
-    label: "Mobile",
+  senior: {
+    label: "Senior",
     color: "var(--chart-1)",
   },
 } satisfies ChartConfig;
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", junior: 186, senior: 80 },
+  { month: "February", junior: 305, senior: 200 },
+  { month: "March", junior: 237, senior: 120 },
+  { month: "April", junior: 73, senior: 190 },
+  { month: "May", junior: 209, senior: 130 },
+  { month: "June", junior: 214, senior: 140 },
 ];
 
 export default function AppAreaChart() {
@@ -55,45 +53,45 @@ export default function AppAreaChart() {
             <ChartTooltip content={<ChartTooltipContent />} />
             <ChartLegend content={<ChartLegendContent />} />
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillJunior" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="var(--color-junior)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="var(--color-junior)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillSenior" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="var(--color-senior)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="var(--color-senior)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
             </defs>
             <Area
-              dataKey="mobile"
+              dataKey="senior"
               type="natural"
-              fill="url(#fillMobile)"
+              fill="url(#fillSenior)"
               fillOpacity={0.4}
-              stroke="var(--color-mobile)"
+              stroke="var(--color-senior)"
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="junior"
               type="natural"
-              fill="url(#fillMobile)"
+              fill="url(#fillJunior)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="var(--color-junior)"
               stackId="a"
             />
           </AreaChart>

@@ -26,6 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const formSchema = z.object({
   firstName: z.string().nonempty("First name is required"),
@@ -128,7 +129,7 @@ export default function EmployeeForm(props: Props) {
             <FormItem>
               <FormLabel>Phone</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="+90" />
+                <PhoneInput {...field} defaultCountry="TR" />
               </FormControl>
             </FormItem>
           )}

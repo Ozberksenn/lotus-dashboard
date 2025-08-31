@@ -21,6 +21,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// Sadece bu chart da fake data kullanıldı.
+
 const chartData = [
   { month: "January", junior: 186, senior: 80 },
   { month: "February", junior: 305, senior: 200 },
@@ -35,7 +37,7 @@ export default function AppAreaChart() {
     <Card>
       <CardHeader>
         <CardTitle className="text-lg font-medium mb-6">
-          Total Visitors
+          Performance Distrubitons
         </CardTitle>
       </CardHeader>
       <CardContent>

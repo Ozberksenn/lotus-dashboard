@@ -69,7 +69,7 @@ export default function TableHeader({
               onValueChange={setDepFilter}
             >
               {departments.map((item) => (
-                <DropdownMenuRadioItem value={item.name}>
+                <DropdownMenuRadioItem key={item.id} value={item.name}>
                   {item.name}
                 </DropdownMenuRadioItem>
               ))}

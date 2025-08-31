@@ -1,18 +1,14 @@
 import React from "react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Employee } from "@/types/employee";
 import { useEmployeeStore } from "@/store/employeeState";
+import DatePickerField from "./DatePicker";
+import ImageUpload from "@/components/ImageUpload";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -22,18 +18,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import DatePickerField from "./DatePicker";
-import ImageUpload from "@/components/ImageUpload";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { id } from "zod/v4/locales";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   firstName: z.string().nonempty("First name is required"),
   lastName: z.string().nonempty("Last name is required"),
   email: z.string().email("Format must be email"),
-  phone: z.string().min(13).max(13),
+  phone: z.string(),
   status: z.string(),
   departmentId: z.string(),
   position: z.string().optional(),
@@ -69,10 +67,9 @@ export default function EmployeeForm(props: Props) {
     defaultValues: initialValues,
   });
   const handleSubmit = async (values: FormValues) => {
-    console.log(values);
     if (typeof onSubmit === "function") {
       await onSubmit(values as Employee);
-      form.reset();
+      // form.reset();
     }
   };
 
@@ -124,7 +121,6 @@ export default function EmployeeForm(props: Props) {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="phone"
@@ -132,7 +128,7 @@ export default function EmployeeForm(props: Props) {
             <FormItem>
               <FormLabel>Phone</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder="+90" />
               </FormControl>
             </FormItem>
           )}
@@ -245,7 +241,6 @@ export default function EmployeeForm(props: Props) {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="avatar"

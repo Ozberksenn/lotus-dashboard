@@ -29,6 +29,7 @@ const INITIAL_VALUES: Employee = {
 };
 
 import EmployeeForm from "./EmployeeForm";
+import { toast } from "sonner";
 
 export default function Create() {
   const { employees } = useEmployeeStore();
@@ -38,8 +39,17 @@ export default function Create() {
   const { createEmployee } = useCreateEmployee();
 
   const handleSubmit = async (values: Employee) => {
-    await createEmployee(values);
-    setOpen(false);
+    const uniqueControll: boolean = emailUniqueControll(values.email);
+    if (uniqueControll == true) {
+      await createEmployee(values);
+      setOpen(false);
+    } else {
+      toast("Email must be unique");
+    }
+  };
+
+  const emailUniqueControll = (mail: string): boolean => {
+    return !employees.some((item) => item.email === mail);
   };
 
   return (

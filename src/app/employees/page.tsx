@@ -1,42 +1,46 @@
 "use client";
 
-import { useMemo } from "react";
-import { MessageCircleWarning } from "lucide-react";
-import { useEmployeeStore } from "@/store/employeeState";
+import {useMemo, useState} from "react";
+import {MessageCircleWarning} from "lucide-react";
+import {useEmployeeStore} from "@/store/employeeState";
 import AppSpinner from "@/components/AppSpinner";
 
-import { columns } from "./_components/columns";
-import { DataTable } from "./_components/data-table";
+import {columns} from "./_components/columns";
+import {DataTable} from "./_components/data-table";
 import TableHeader from "./_components/TableHeader";
 
 export default function Employees() {
-  const { employees, departments, isLoading, error, filters } =
-    useEmployeeStore();
-  const filteredData = useMemo(() => {
-    return employees.filter((emp) => {
-      const emailMatch = filters?.email
-        ? emp.email.toLowerCase().includes(filters?.email?.toLowerCase())
-        : true;
+    const {employees, departments, isLoading, error, filters} = useEmployeeStore();
 
-      const depMatch = filters?.department
-        ? emp.departmentId === filters.department
-        : true;
+    const filteredData = useMemo(() => {
+        return employees.filter((emp) => {
+            const emailMatch = filters?.email ? emp.email
+                .toLowerCase()
+                .includes(filters?.email?.toLowerCase()) : true;
 
-      return emailMatch && depMatch;
-    });
-  }, [employees, departments, filters]);
+            const depMatch = filters?.department
+                ? emp.departmentId === filters.department
+                : true;
 
-  if (isLoading) return <AppSpinner />;
-  if (error)
+            return emailMatch && depMatch;
+        });
+    }, [employees, departments, filters]);
+
+    if (isLoading) return <AppSpinner/>;
+    if (error)
+        return (
+            <div className="flex items-center justify-center h-[90vh]">
+                <MessageCircleWarning/>
+            </div>
+        );
+
     return (
-      <div className="flex items-center justify-center h-[90vh]">
-        <MessageCircleWarning />
-      </div>
+        <div>
+            <TableHeader/>
+            <DataTable
+                columns={columns(departments)}
+                data={filteredData}
+            />
+        </div>
     );
-  return (
-    <div>
-      <TableHeader />
-      <DataTable columns={columns(departments)} data={filteredData} />
-    </div>
-  );
 }
